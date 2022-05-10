@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ComposeTest</string>
+    <string name="btn_show_more_text">Show More</string>
+    <string name="btn_show_less_text">Show less</string>
+</resources>
