@@ -229,13 +229,6 @@ private fun PreviewMainBottomNav() {
 }
 
 @Composable
-fun HomeContent() {
-    Scaffold(bottomBar = { MainBottomNav() }) {
-        HomeContent(Modifier.padding(it))
-    }
-}
-
-@Composable
 private fun SlotsHome(
     @StringRes title: Int,
     modifier: Modifier = Modifier,
@@ -286,3 +279,9 @@ private fun PreviewHomeLayout() {
     }
 }
 
+@Composable
+fun HomeContent() {
+    Scaffold(bottomBar = { MainBottomNav() }) {
+        HomeContent(Modifier.padding(it))
+    }
+}
