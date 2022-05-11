@@ -2,6 +2,10 @@ package com.example.composetest
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 
 object Utils {
 
@@ -119,3 +123,11 @@ data class Expanses(
     val title: String,
     val price: String
 )
+
+class WellnessTask(
+    val id: Int,
+    val label: String,
+    initialCheck: Boolean = false
+) {
+    var isChecked by mutableStateOf(initialCheck)
+}
