@@ -6,16 +6,14 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -24,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composetest.R
 import com.example.composetest.ui.theme.ComposeTestTheme
+import kotlinx.coroutines.launch
 
 @Composable
 fun TextElement(name: String) {
@@ -82,12 +81,24 @@ fun TextElement(name: String) {
 fun ColumnElement(
     names: List<String> = List(1000) {
         "$it"
-    }
+    },
+    listState: LazyListState = LazyListState(),
+    onBtnClicked: () -> Unit
 ) {
 
-    LazyColumn(modifier = Modifier.padding(all = 8.dp)) {
-        items(items = names) { name ->
-            TextElement(name = name)
+    Column() {
+        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
+
+            Button(
+                onClick = onBtnClicked
+            ) {
+                Text(text = "Back to top ")
+            }
+        }
+        LazyColumn(modifier = Modifier.padding(all = 8.dp), state = listState) {
+            items(items = names) { name ->
+                TextElement(name = name)
+            }
         }
     }
 }
@@ -118,13 +129,22 @@ fun OnBoardingScreen(onBtnClicked: () -> Unit) {
 fun HandleAppStart() {
 
     var shouldShowOnBoarding by rememberSaveable { mutableStateOf(true) }
+    val coroutineScope = rememberCoroutineScope()
+    val listState = LazyListState()
+
 
     if (shouldShowOnBoarding) {
         OnBoardingScreen() {
             shouldShowOnBoarding = false
         }
     } else {
-        ColumnElement()
+
+        ColumnElement(listState = listState) {
+
+            coroutineScope.launch {
+                listState.animateScrollToItem(0, 1)
+            }
+        }
     }
 }
 
@@ -137,7 +157,7 @@ fun HandleAppStart() {
 @Composable
 private fun Preview1() {
     ComposeTestTheme {
-        ColumnElement()
+//        ColumnElement()
     }
 }
 

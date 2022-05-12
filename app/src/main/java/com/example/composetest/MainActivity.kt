@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.ui.Modifier
 import com.example.composetest.pathway.CustomTheme
+import com.example.composetest.pathway.HandleAppStart
 import com.example.composetest.pathway.HomeContent
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    HomeContent()
+
+                    HandleAppStart()
                 }
             }
         }
