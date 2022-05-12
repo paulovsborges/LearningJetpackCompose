@@ -17,12 +17,14 @@ import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Spa
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composetest.DrawableStringPair
@@ -131,11 +133,14 @@ private fun FavoritesCollectionCard(modifier: Modifier = Modifier, data: Drawabl
                 contentScale = ContentScale.Crop
             )
 
-            Text(
-                text = stringResource(id = data.text),
-                style = MaterialTheme.typography.h5,
-                modifier = Modifier.padding(horizontal = 16.dp)
-            )
+            ProvideTextStyle( value = TextStyle()) {
+
+                Text(
+                    text = stringResource(id = data.text),
+                    style = MaterialTheme.typography.h5,
+                    modifier = Modifier.padding(horizontal = 16.dp)
+                )
+            }
         }
     }
 }
@@ -256,7 +261,15 @@ private fun HomeContent(modifier: Modifier = Modifier) {
     ) {
         Spacer(modifier = Modifier.height(16.dp))
 
-        SearchBar()
+        Surface(
+            color = MaterialTheme.colors.background.copy(0.1f),
+            contentColor = MaterialTheme.colors.primary, elevation = 20.dp
+        ) {
+            CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+
+                SearchBar()
+            }
+        }
 
         SlotsHome(R.string.align_your_body) {
             AlignYourBodyList(data = alignYourBodyData)
