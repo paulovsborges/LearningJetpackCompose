@@ -35,7 +35,7 @@ fun WellnessScreen(modifier: Modifier = Modifier) {
         val tasks = remember {
             generateTaskList().toMutableStateList()
         }
-        WellnessTaskList(tasks)
+//        WellnessTaskList(tasks)
     }
 }
 

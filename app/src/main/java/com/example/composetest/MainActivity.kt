@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.example.composetest.pathway.CustomTheme
+import com.example.composetest.pathway.Home
 import com.example.composetest.pathway.MainStateCodeLabScreenInstance
 
 class MainActivity : ComponentActivity() {
@@ -11,7 +12,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CustomTheme(dark = false) {
-                MainStateCodeLabScreenInstance()
+                Home()
             }
         }
     }
